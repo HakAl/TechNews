@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.jacmobile.technews.ui.ABaseActivity;
 import com.jacmobile.technews.ui.ContentView;
+import com.jacmobile.technews.ui.RootActivity;
 
 import javax.inject.Singleton;
 
@@ -16,6 +17,7 @@ import dagger.Provides;
         library = true,
         addsTo = ApplicationScopeModule.class, // Important for object graph validation at compile time
         injects = {
+                RootActivity.class
         }
 )
 public class ActivityScopeModule {

@@ -25,7 +25,6 @@ public class NetworkModule implements NetworkService
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-
     @Override public void get(String url)
     {
         new GetTask().execute(url);

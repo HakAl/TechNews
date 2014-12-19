@@ -2,16 +2,8 @@ package com.jacmobile.technews.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 import com.jacmobile.technews.R;
-import com.jacmobile.technews.networking.NetworkModule;
-import com.jacmobile.technews.networking.NewsEntity;
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
-
-import javax.inject.Inject;
 
 
 /**
@@ -32,13 +24,6 @@ import javax.inject.Inject;
  */
 public class NewsItemsListActivity extends ABaseActivity implements NewsItemsListFragment.Callbacks
 {
-    @Inject Bus bus;
-    @Inject NetworkModule networkModule;
-
-    @Subscribe public void busEvent(NewsEntity output)
-    {
-        Log.wtf("News Feed: ", output.getRaw());
-    }
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -61,27 +46,13 @@ public class NewsItemsListActivity extends ABaseActivity implements NewsItemsLis
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((NewsItemsListFragment) getSupportFragmentManager()
+            ((NewsItemsListFragment) getFragmentManager()
                     .findFragmentById(R.id.newsitems_list))
                     .setActivateOnItemClick(true);
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
     }
-
-    @Override protected void onStart()
-    {
-        super.onStart();
-        bus.register(this);
-        networkModule.get("http://feeds.wired.com/wired/index");
-    }
-
-    @Override protected void onStop()
-    {
-        super.onStop();
-        bus.unregister(this);
-    }
-
     /**
      * Callback method from {@link NewsItemsListFragment.Callbacks}
      * indicating that the item with the given ID was selected.

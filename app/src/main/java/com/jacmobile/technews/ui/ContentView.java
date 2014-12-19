@@ -1,16 +1,7 @@
 package com.jacmobile.technews.ui;
 
-/**
- * Created by alex on 10/21/14.
- */
-
 import android.app.Activity;
 import android.view.ViewGroup;
-
-
-import com.jacmobile.technews.R;
-
-import java.text.DecimalFormat;
 
 /**
  * An indirection which allows controlling the root container used for each activity.

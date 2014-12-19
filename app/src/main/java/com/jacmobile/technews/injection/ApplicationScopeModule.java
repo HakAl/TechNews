@@ -19,10 +19,4 @@ import dagger.Provides;
 )
 public class ApplicationScopeModule
 {
-    @Provides
-    Picasso providesPicasso(@ForApplication Context context) {
-        Picasso picasso = Picasso.with(context);
-//        picasso.setDebugging(BuildConfig.DEBUG);
-        return picasso;
-    }
 }
