@@ -35,7 +35,7 @@ public class NetworkModule implements NetworkService
         new PostTask().execute(url, json);
     }
 
-    void postExecute(String result)
+    private void postExecute(String result)
     {
         bus.register(this);
         bus.post(new NewsEntity(result));

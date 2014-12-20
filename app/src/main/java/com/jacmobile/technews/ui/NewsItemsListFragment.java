@@ -2,36 +2,20 @@ package com.jacmobile.technews.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-
-import com.jacmobile.technews.R;
-import com.jacmobile.technews.dummy.DummyContent;
 import com.jacmobile.technews.networking.NetworkModule;
 import com.jacmobile.technews.networking.NewsEntity;
 import com.jacmobile.technews.networking.NewsItem;
 import com.jacmobile.technews.networking.RssHandler;
-import com.jacmobile.technews.ui.adapters.FeedAdapter;
-import com.jacmobile.technews.ui.adapters.RecyclerAdapter;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Picasso;
 
 import org.xml.sax.InputSource;
 
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.inject.Inject;
 import javax.xml.parsers.SAXParser;
@@ -50,50 +34,18 @@ public class NewsItemsListFragment extends DaggerListFragment
 {
     @Inject Bus bus;
     @Inject NetworkModule networkModule;
-    @Inject Picasso picasso;
-
-    @Subscribe
-    public void busEvent(NewsEntity output)
-    {
-        Log.wtf("News Feed: ", output.getRaw());
-        parseResponse(output.getRaw());
-    }
-
     private ArrayList<NewsItem> rssFeed = null;
-
 
     private void parseResponse(String response)
     {
-        //Process the response data
         try {
-            SAXParserFactory factory =
-                    SAXParserFactory.newInstance();
-            SAXParser p = factory.newSAXParser();
             RssHandler parser = new RssHandler();
-            p.parse(new InputSource(new StringReader(response)),
-                    parser);
-
+            SAXParserFactory.newInstance()
+                    .newSAXParser()
+                    .parse(new InputSource(new StringReader(response)), parser);
             rssFeed = parser.getParsedItems();
             setImageLinks();
-
-//            feedList.setHasFixedSize(true);
-
-//            LinearLayoutManager staggeredLM = new LinearLayoutManager(getActivity());
-//            feedList.setLayoutManager(staggeredLM);
-
-//            RecyclerAdapter mAdapter = RecyclerAdapter.newInstance(rssFeed);
-//            feedList.setAdapter(mAdapter);
-
-            Log.w("XMLARRAY: ", rssFeed.size() + "");
-            Log.w("XMLARRAY: ", rssFeed.size() + "");
-            Log.w("XMLARRAY: ", rssFeed.size() + "");
-            Log.w("XMLARRAY: ", rssFeed.size() + "");
-            Log.w("XMLARRAY: ", rssFeed.size() + "");
         } catch (Exception e) {
-            Log.w("XMLParseException: ", e);
-            Log.w("XMLParseException: ", e);
-            Log.w("XMLParseException: ", e);
-            Log.w("XMLParseException: ", e);
             Log.w("XMLParseException: ", e);
         }
 
@@ -102,27 +54,26 @@ public class NewsItemsListFragment extends DaggerListFragment
     public void setImageLinks()
     {
         for (NewsItem item : rssFeed) {
-            item.setImageUrl(this.getDescription(item.getDescription()));
+            item.setImageUrl(this.getImageLink(item.getDescription()));
         }
-//        setListAdapter(new FeedAdapter(getActivity(), R.layout.text_item, rssFeed));
     }
 
-
-    public String getDescription(String description)
+    //parse description for any image or video links
+    public String getImageLink(String description)
     {
-        //parse description for any image or video links
-        if (description.contains("<img ")) {
-            String img = description.substring(description.indexOf("<img "));
-            img = img.substring(img.indexOf("src=") + 5);
-            int indexOf = img.indexOf("'");
-            if (indexOf == -1) {
-                indexOf = img.indexOf("\"");
-            }
-            img = img.substring(0, indexOf);
+        return (description.contains("<img ")) ?
+                getImageString(description.substring(description.indexOf("<img ")))
+                : "";
+    }
 
-            return img;
+    String getImageString(String img)
+    {
+        img = img.substring(img.indexOf("src=") + 5);
+        int indexOf = img.indexOf("'");
+        if (indexOf == -1) {
+            indexOf = img.indexOf("\"");
         }
-        return "";
+        return img.substring(0, indexOf);
     }
 
     @Override
@@ -140,6 +91,14 @@ public class NewsItemsListFragment extends DaggerListFragment
         super.onStop();
         bus.unregister(this);
     }
+
+    @Subscribe
+    public void busEvent(NewsEntity output)
+    {
+        Log.wtf("News Feed: ", output.getRaw());
+        parseResponse(output.getRaw());
+    }
+
 
 
     /**

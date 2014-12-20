@@ -10,6 +10,7 @@ import com.jacmobile.technews.R;
 import com.jacmobile.technews.networking.NewsItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by alex on 11/8/14.
@@ -17,6 +18,11 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
 {
     private ArrayList<NewsItem> data;
+
+    public static RecyclerAdapter newInstance(NewsItem[] data)
+    {
+        return new RecyclerAdapter(new ArrayList<>(Arrays.asList(data)));
+    }
 
     public static RecyclerAdapter newInstance(ArrayList<NewsItem> data)
     {

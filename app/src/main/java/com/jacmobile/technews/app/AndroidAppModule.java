@@ -1,9 +1,7 @@
 package com.jacmobile.technews.app;
 
-import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -19,8 +17,6 @@ import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -101,10 +97,6 @@ public class AndroidAppModule
 
     @Provides @Singleton OkHttpClient provideOkHttpClient() {
         return createOkHttpClient();
-    }
-
-    @Provides @Singleton Picasso providePicasso() {
-        return Picasso.with(sApplicationContext);
     }
 
     static OkHttpClient createOkHttpClient() {

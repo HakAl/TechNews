@@ -1,13 +1,9 @@
 package com.jacmobile.technews.injection;
 
-import android.content.Context;
-
 import com.jacmobile.technews.app.AndroidAppModule;
 import com.jacmobile.technews.app.DaggerApplication;
-import com.squareup.picasso.Picasso;
 
 import dagger.Module;
-import dagger.Provides;
 
 @Module(
         injects = {

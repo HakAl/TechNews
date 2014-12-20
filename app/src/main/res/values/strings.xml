@@ -3,5 +3,6 @@
 
     <string name="app_name">TechNews</string>
     <string name="title_newsitems_detail">NewsItems Detail</string>
+    <string name="date">Date: %s</string>
 
 </resources>

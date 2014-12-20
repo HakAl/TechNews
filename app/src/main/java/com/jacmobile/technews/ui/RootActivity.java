@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.jacmobile.technews.R;
-import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -15,7 +15,6 @@ import javax.inject.Inject;
  */
 public class RootActivity extends ABaseActivity
 {
-    @Inject Picasso picasso;
     @Inject ContentView contentView;
     private LayoutInflater inflater;
     private RelativeLayout rootLayout;
@@ -26,15 +25,14 @@ public class RootActivity extends ABaseActivity
         super.onCreate(savedInstanceState);
         super.inject(this);
         this.inflater = LayoutInflater.from(this);
-//        this.rootLayout = (RelativeLayout) inflater.inflate(R.layout.root, contentView.get(this), false);
-        this.setContentView(R.layout.image_item);
-        ImageView img = (ImageView) this.findViewById(R.id.image_item);
-        picasso.load("http://www.wired.com/wp-content/uploads/2014/12/dangelo.jpeg").into(img);
+        this.rootLayout = (RelativeLayout) inflater.inflate(R.layout.root, contentView.get(this), false);
+        this.setContentView(rootLayout);
 
-//        getFragmentManager()
-//                .beginTransaction()
-//                .add(R.id.root, new DaggerListFragment.TestListFragment(), getClass().getSimpleName())
-//                .commit();
+
+        getFragmentManager()
+                .beginTransaction()
+                .add(R.id.root, new DaggerListFragment.TestListFragment(), getClass().getSimpleName())
+                .commit();
     }
 
     @Override
