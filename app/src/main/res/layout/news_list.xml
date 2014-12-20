@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:divider="@null"
-    android:dividerHeight="8dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"/>
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:id="@+id/news_list"/>
+
+    <com.jacmobile.technews.ui.views.FAB
+        android:id="@+id/fab"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:layout_margin="16dp"
+        android:background="@drawable/fab_background"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_horizontal">
+
+        <!--android:elevation="@dimen/fab_elevation"-->
+        <!--android:stateListAnimator="@animator/fab_anim"-->
+
+        <ImageView
+            android:layout_width="@dimen/fab_icon_size"
+            android:layout_height="@dimen/fab_icon_size"
+            android:src="@drawable/fab_icons"
+            android:layout_gravity="center"
+            android:duplicateParentState="true"/>
+
+    </com.jacmobile.technews.ui.views.FAB>
+
+</RelativeLayout>

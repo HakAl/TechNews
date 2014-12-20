@@ -1,7 +1,5 @@
 package com.jacmobile.technews.ui;
 
-import android.hardware.Sensor;
-
 /**
  * Created by acorll on 10/12/2014
  */

@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.jacmobile.technews.R;
 import com.jacmobile.technews.networking.NetworkModule;
 import com.jacmobile.technews.networking.NewsEntity;
 import com.jacmobile.technews.networking.NewsItem;
 import com.jacmobile.technews.networking.RssHandler;
-import com.jacmobile.technews.networking.RssUrls;
 import com.jacmobile.technews.ui.adapters.FeedAdapter;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -77,8 +77,9 @@ public class DaggerListFragment extends ListFragment
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            list = (ListView) inflater.inflate(R.layout.news_list, container, false);
-            return list;
+            RelativeLayout parent = (RelativeLayout) inflater.inflate(R.layout.news_list, container, false);
+            this.list = (ListView) parent.findViewById(R.id.news_list);
+            return parent;
         }
 
         private void parseResponse(String response)
@@ -100,12 +101,26 @@ public class DaggerListFragment extends ListFragment
         public void setImageLinks()
         {
             for (NewsItem item : rssFeed) {
-                item.setImageUrl(this.getDescription(item.getDescription()));
+                item.setImageUrl(this.getImageUrl(item.getDescription()));
+//                item.setDate(this.getDate(item.getDescription()));
             }
         }
 
+        private String getDate(String description)
+        {
+            String result = "";
+            if (description.contains("<pubDate>")) {
+                result = description.substring(description.indexOf("<pubDate>"));
+                result = result.substring(result.indexOf("<pubDate>") + 9);
+                int index = result.indexOf("</");
+                result = result.substring(0, index);
+                return result;
+            }
+            return result;
+        }
+
         //parse description for any image or video links
-        public String getDescription(String description)
+        public String getImageUrl(String description)
         {
             if (description.contains("<img ")) {
                 String img = description.substring(description.indexOf("<img "));

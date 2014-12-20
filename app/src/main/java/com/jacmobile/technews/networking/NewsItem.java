@@ -5,6 +5,18 @@ public class NewsItem
     public String title;
     public String link;
     public String imageUrl;
+    public String date;
+    public String description;
+
+    public String getDate()
+    {
+        return date;
+    }
+
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
 
     public String getImageUrl()
     {
@@ -15,8 +27,6 @@ public class NewsItem
     {
         this.imageUrl = imageUrl;
     }
-
-    public String description;
 
     @Override
     public String toString()

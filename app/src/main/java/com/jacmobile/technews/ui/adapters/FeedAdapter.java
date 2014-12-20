@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.jacmobile.technews.R;
 import com.jacmobile.technews.networking.NewsItem;
 import com.jacmobile.technews.ui.ABaseActivity;
+import com.jacmobile.technews.utils.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,29 +43,35 @@ public class FeedAdapter extends ArrayAdapter<NewsItem>
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_item, parent, false);
             item.title = (TextView) convertView.findViewById(R.id.news_item_title);
             item.image = (ImageView) convertView.findViewById(R.id.news_item_image);
+            item.date = (TextView) convertView.findViewById(R.id.news_item_date);
             convertView.setTag(item);
         } else {
             item = (ListItem) convertView.getTag();
         }
-
         NewsItem currentItem = data.get(position);
-
         item.title.setText(currentItem.getTitle());
-
-        Log.wtf("Item "+position,currentItem.getDescription());
+        item.date.setText(TextUtils.formatNewsDate(currentItem.getDate()));
         Glide.with(getContext())
                 .load(currentItem.getImageUrl())
                 .centerCrop()
-//                .placeholder(R.drawable.ic_launcher)
                 .crossFade()
                 .into(item.image);
-
         return convertView;
     }
 
     static class ListItem
     {
         TextView title;
+        TextView date;
         ImageView image;
     }
+
+    private SimpleTarget target = new SimpleTarget()
+    {
+        @Override
+        public void onResourceReady(Object resource, GlideAnimation glideAnimation)
+        {
+
+        }
+    };
 }

@@ -84,16 +84,6 @@ public class AndroidAppModule
         return new Bus(ThreadEnforcer.ANY);
     }
 
-//    @Provides
-//    Picasso providesPicasso(@ForApplication Context context, OkHttpClient okHttpClient) {
-//        Picasso picasso = Picasso.with(context);
-////        picasso.setDebugging(BuildConfig.DEBUG);
-//        return picasso;
-//    Picasso picasso = new Picasso.Builder(this)
-//        .downloader(new OkHttpDownloader(okHttpClient))
-//        .build();
-//    }
-
 
     @Provides @Singleton OkHttpClient provideOkHttpClient() {
         return createOkHttpClient();

@@ -1,5 +1,7 @@
 package com.jacmobile.technews.networking;
 
+import android.util.Log;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -44,6 +46,8 @@ public class RssHandler extends DefaultHandler
             buf = new StringBuffer();
         } else if ("description".equals(name) && inItem) {
             buf = new StringBuffer();
+        } else if ("pubDate".equals(name) && inItem) {
+            buf = new StringBuffer();
         }
     }
 
@@ -60,6 +64,8 @@ public class RssHandler extends DefaultHandler
             item.link = buf.toString();
         } else if ("description".equals(name) && inItem) {
             item.description = buf.toString();
+        } else if ("pubDate".equals(name) && inItem) {
+            item.date = buf.toString();
         }
 
         buf = null;
@@ -69,7 +75,6 @@ public class RssHandler extends DefaultHandler
     @Override
     public void characters(char ch[], int start, int length)
     {
-//Don't bother if buffer isn't initialized
         if (buf != null) {
             for (int i = start; i < start + length; i++) {
                 buf.append(ch[i]);
