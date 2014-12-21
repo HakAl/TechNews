@@ -11,8 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.jacmobile.technews.R;
 
-import javax.inject.Inject;
-
 /**
  * Created by alex on 12/15/14.
  */
@@ -24,6 +22,7 @@ public class RootActivity extends ABaseActivity
     private LayoutInflater inflater;
     private RelativeLayout rootLayout;
     private ActionBarManager actionBarManager;
+    private Fragment newsListFragment = null;
     private boolean isChild = false;
 
     @Override
@@ -38,10 +37,7 @@ public class RootActivity extends ABaseActivity
         actionBarManager = new ActionBarManager((Toolbar) this.findViewById(R.id.toolbar));
 
         if (savedInstanceState == null) {
-            getFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.container, new DaggerListFragment.TestListFragment(), NEWSLIST_FRAGMENT)
-                    .commit();
+            initNewsList();
         }
     }
 
@@ -113,7 +109,7 @@ public class RootActivity extends ABaseActivity
         this.actionBarManager.setActionBarTitle(title);
     }
 
-    public void newFragment(String tag, String ... args)
+    public void newFragment(String tag, String... args)
     {
         isChild = true;
         final FragmentManager fragmentManager = getFragmentManager();
@@ -121,17 +117,14 @@ public class RootActivity extends ABaseActivity
         final Fragment fragment;
         try {
             switch (tag) {
+                case NEWSLIST_FRAGMENT:
+                    transaction.replace(R.id.container, newsListFragment, NEWSLIST_FRAGMENT);
+                    break;
                 case WEBVIEW_FRAGMENT:
                     fragment = WebViewFragment.newInstance(args[0], args[1]);
                     if (fragmentManager.findFragmentByTag(WEBVIEW_FRAGMENT) != null)
                         transaction.addToBackStack(null);
                     transaction.replace(R.id.container, fragment, WEBVIEW_FRAGMENT);
-                    break;
-                case NEWSLIST_FRAGMENT:
-                    fragment = new DaggerListFragment.TestListFragment();
-                    if (fragmentManager.findFragmentByTag(NEWSLIST_FRAGMENT) != null)
-                        transaction.addToBackStack(null);
-                    transaction.replace(R.id.container, fragment, NEWSLIST_FRAGMENT);
                     break;
             }
             transaction.commit();
@@ -140,23 +133,16 @@ public class RootActivity extends ABaseActivity
         }
     }
 
-//    public void launchWebFragment(String title, String url) {
-//        final FragmentManager fragmentManager = getFragmentManager();
-//
-//        // Close the drawer
-//        actionBarManager.closeDrawer();
-//
-//        final FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        try {
-//            final WebViewFragment fragment = WebViewFragment.newInstance(title, url);
-//
-//            if (fragmentManager.findFragmentByTag(WEBVIEW_FRAGMENT) != null)
-//                transaction.addToBackStack(null);
-//
-//            transaction.replace(R.id.container, fragment, WEBVIEW_FRAGMENT);
-//            transaction.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void initNewsList()
+    {
+        try {
+            newsListFragment = NewsListFragment.newInstance();
+            getFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.container, newsListFragment, NEWSLIST_FRAGMENT)
+                    .commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

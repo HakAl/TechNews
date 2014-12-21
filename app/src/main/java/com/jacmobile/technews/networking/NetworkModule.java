@@ -3,6 +3,7 @@ package com.jacmobile.technews.networking;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.jacmobile.technews.networking.rss.entities.NewsEntity;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;

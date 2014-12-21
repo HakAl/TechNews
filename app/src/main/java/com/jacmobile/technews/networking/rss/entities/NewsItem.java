@@ -1,22 +1,24 @@
-package com.jacmobile.technews.networking;
+package com.jacmobile.technews.networking.rss.entities;
 
-public class NewsItem
+import java.io.Serializable;
+
+public class NewsItem implements Serializable
 {
+    public String date;
     public String title;
     public String link;
     public String imageUrl;
-    public String date;
+    public String author;
     public String description;
-    public String mediaContent;
 
-    public String getMediaContent()
+    public String getAuthor()
     {
-        return mediaContent;
+        return author;
     }
 
-    public void setMediaContent(String mediaContent)
+    public void setAuthor(String author)
     {
-        this.mediaContent = mediaContent;
+        this.author = author;
     }
 
     public String getDate()
@@ -37,12 +39,6 @@ public class NewsItem
     public void setImageUrl(String imageUrl)
     {
         this.imageUrl = imageUrl;
-    }
-
-    @Override
-    public String toString()
-    {
-        return title;
     }
 
     public String getTitle()
@@ -73,5 +69,11 @@ public class NewsItem
     public void setLink(String link)
     {
         this.link = link;
+    }
+
+    @Override
+    public String toString()
+    {
+        return title;
     }
 }

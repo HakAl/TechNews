@@ -10,13 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.jacmobile.technews.R;
-import com.jacmobile.technews.networking.NewsItem;
+import com.jacmobile.technews.networking.rss.entities.NewsItem;
 import com.jacmobile.technews.ui.ABaseActivity;
 import com.jacmobile.technews.ui.RootActivity;
-import com.jacmobile.technews.ui.WebViewFragment;
 import com.jacmobile.technews.utils.TextUtils;
 
 import java.util.ArrayList;
@@ -53,7 +50,7 @@ public class FeedAdapter extends ArrayAdapter<NewsItem>
             item = (ListItem) convertView.getTag();
         }
         NewsItem currentItem = getItem(position);
-        Log.wtf("media:content", currentItem.getMediaContent());
+//        Log.wtf("media:content", currentItem.getMediaContent());
         item.title.setText(currentItem.getTitle());
         item.date.setText(TextUtils.cleanNewsDate(currentItem.getDate()));
         Glide.with(getContext())

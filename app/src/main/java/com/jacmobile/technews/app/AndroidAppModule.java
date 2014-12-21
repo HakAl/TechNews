@@ -8,10 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.jacmobile.technews.injection.ForApplication;
-import com.jacmobile.technews.ui.DaggerListFragment;
 import com.jacmobile.technews.ui.NewsItemsDetailActivity;
 import com.jacmobile.technews.ui.NewsItemsListActivity;
 import com.jacmobile.technews.ui.NewsItemsListFragment;
+import com.jacmobile.technews.ui.NewsListFragment;
 import com.jacmobile.technews.ui.WebViewFragment;
 import com.jacmobile.technews.ui.adapters.FeedAdapter;
 import com.squareup.okhttp.Cache;
@@ -37,7 +37,7 @@ import dagger.Provides;
                 NewsItemsDetailActivity.class,
                 NewsItemsListFragment.class,
                 FeedAdapter.class,
-                DaggerListFragment.TestListFragment.class,
+                NewsListFragment.class,
                 WebViewFragment.class
 //                RootActivity.class
         }

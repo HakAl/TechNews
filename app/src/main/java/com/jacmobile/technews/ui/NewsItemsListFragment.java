@@ -6,8 +6,8 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.jacmobile.technews.networking.NetworkModule;
-import com.jacmobile.technews.networking.NewsEntity;
-import com.jacmobile.technews.networking.NewsItem;
+import com.jacmobile.technews.networking.rss.entities.NewsEntity;
+import com.jacmobile.technews.networking.rss.entities.NewsItem;
 import com.jacmobile.technews.networking.RssHandler;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -18,7 +18,6 @@ import java.io.StringReader;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
-import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 /**

@@ -1,4 +1,4 @@
-package com.jacmobile.technews.networking;
+package com.jacmobile.technews.networking.rss.entities;
 
 /**
  * Created by alex on 12/14/14.

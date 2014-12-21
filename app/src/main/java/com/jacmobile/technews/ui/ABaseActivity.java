@@ -2,17 +2,10 @@ package com.jacmobile.technews.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 
 import com.jacmobile.technews.app.DaggerApplication;
 import com.jacmobile.technews.injection.ActivityScopeModule;
 import com.jacmobile.technews.injection.DaggerInjector;
-import com.jacmobile.technews.networking.NetworkModule;
-import com.jacmobile.technews.networking.NewsEntity;
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
-
-import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 

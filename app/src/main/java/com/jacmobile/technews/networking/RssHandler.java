@@ -1,6 +1,6 @@
 package com.jacmobile.technews.networking;
 
-import android.util.Log;
+import com.jacmobile.technews.networking.rss.entities.NewsItem;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -48,9 +48,6 @@ public class RssHandler extends DefaultHandler
             buf = new StringBuffer();
         } else if ("pubDate".equals(name) && inItem) {
             buf = new StringBuffer();
-        } else if ("content".equals(name) && inItem) {
-            if ("thumbnail".equals(name) && inItem)
-                buf = new StringBuffer();
         }
     }
 
@@ -69,9 +66,6 @@ public class RssHandler extends DefaultHandler
             item.description = buf.toString();
         } else if ("pubDate".equals(name) && inItem) {
             item.date = buf.toString();
-        } else if ("content".equals(name) && inItem) {
-            if ("thumbnail".equals(name) && inItem)
-                item.mediaContent = buf.toString();
         }
 
         buf = null;

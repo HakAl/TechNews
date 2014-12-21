@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jacmobile.technews.R;
-import com.jacmobile.technews.networking.NewsItem;
+import com.jacmobile.technews.networking.rss.entities.NewsItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
