@@ -12,6 +12,7 @@ import com.jacmobile.technews.ui.DaggerListFragment;
 import com.jacmobile.technews.ui.NewsItemsDetailActivity;
 import com.jacmobile.technews.ui.NewsItemsListActivity;
 import com.jacmobile.technews.ui.NewsItemsListFragment;
+import com.jacmobile.technews.ui.WebViewFragment;
 import com.jacmobile.technews.ui.adapters.FeedAdapter;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
@@ -36,7 +37,8 @@ import dagger.Provides;
                 NewsItemsDetailActivity.class,
                 NewsItemsListFragment.class,
                 FeedAdapter.class,
-                DaggerListFragment.TestListFragment.class
+                DaggerListFragment.TestListFragment.class,
+                WebViewFragment.class
 //                RootActivity.class
         }
 )

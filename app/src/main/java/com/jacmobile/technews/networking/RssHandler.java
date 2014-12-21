@@ -48,6 +48,9 @@ public class RssHandler extends DefaultHandler
             buf = new StringBuffer();
         } else if ("pubDate".equals(name) && inItem) {
             buf = new StringBuffer();
+        } else if ("content".equals(name) && inItem) {
+            if ("thumbnail".equals(name) && inItem)
+                buf = new StringBuffer();
         }
     }
 
@@ -66,6 +69,9 @@ public class RssHandler extends DefaultHandler
             item.description = buf.toString();
         } else if ("pubDate".equals(name) && inItem) {
             item.date = buf.toString();
+        } else if ("content".equals(name) && inItem) {
+            if ("thumbnail".equals(name) && inItem)
+                item.mediaContent = buf.toString();
         }
 
         buf = null;

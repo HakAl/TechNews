@@ -8,9 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        android:dividerHeight="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:dividerHeight="12dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:id="@+id/news_list"/>
 
     <com.jacmobile.technews.ui.views.FAB

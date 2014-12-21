@@ -7,6 +7,17 @@ public class NewsItem
     public String imageUrl;
     public String date;
     public String description;
+    public String mediaContent;
+
+    public String getMediaContent()
+    {
+        return mediaContent;
+    }
+
+    public void setMediaContent(String mediaContent)
+    {
+        this.mediaContent = mediaContent;
+    }
 
     public String getDate()
     {

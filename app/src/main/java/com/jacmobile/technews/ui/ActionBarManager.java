@@ -34,6 +34,7 @@ public class ActionBarManager implements AdapterView.OnItemClickListener
     public ActionBarManager(Toolbar toolbar)
     {
         this.toolbar = toolbar;
+        onCreate();
     }
 
     private RootActivity getActivity()
@@ -65,6 +66,11 @@ public class ActionBarManager implements AdapterView.OnItemClickListener
         return brand + " " + Build.MODEL;
     }
 
+    public void closeDrawer()
+    {
+        this.drawer.closeDrawers();
+    }
+
     public void onPostCreate()
     {
         actionBarDrawerToggle.syncState();
@@ -94,17 +100,6 @@ public class ActionBarManager implements AdapterView.OnItemClickListener
     public boolean isDrawerOpen()
     {
         return drawer.isDrawerOpen(GravityCompat.START);
-    }
-
-    private void setAds()
-    {
-        if (adsOn) {
-            Toast.makeText(getActivity(), "Ads Off", Toast.LENGTH_SHORT).show();
-            adsOn = false;
-        } else {
-            Toast.makeText(getActivity(), "Ads On", Toast.LENGTH_LONG).show();
-            adsOn = true;
-        }
     }
 
     @Override

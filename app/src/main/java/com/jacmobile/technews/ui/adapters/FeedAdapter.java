@@ -15,6 +15,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.jacmobile.technews.R;
 import com.jacmobile.technews.networking.NewsItem;
 import com.jacmobile.technews.ui.ABaseActivity;
+import com.jacmobile.technews.ui.RootActivity;
+import com.jacmobile.technews.ui.WebViewFragment;
 import com.jacmobile.technews.utils.TextUtils;
 
 import java.util.ArrayList;
@@ -26,10 +28,12 @@ import java.util.Arrays;
 public class FeedAdapter extends ArrayAdapter<NewsItem>
 {
     private ArrayList<NewsItem> data;
+    private RootActivity context;
 
     public FeedAdapter(Context context, int resource, NewsItem[] objects)
     {
         super(context, resource, objects);
+        this.context = (RootActivity) context;
         ((ABaseActivity) context).inject(this);
         this.data = new ArrayList<>(Arrays.asList(objects));
     }
@@ -48,15 +52,39 @@ public class FeedAdapter extends ArrayAdapter<NewsItem>
         } else {
             item = (ListItem) convertView.getTag();
         }
-        NewsItem currentItem = data.get(position);
+        NewsItem currentItem = getItem(position);
+        Log.wtf("media:content", currentItem.getMediaContent());
         item.title.setText(currentItem.getTitle());
-        item.date.setText(TextUtils.formatNewsDate(currentItem.getDate()));
+        item.date.setText(TextUtils.cleanNewsDate(currentItem.getDate()));
         Glide.with(getContext())
                 .load(currentItem.getImageUrl())
                 .centerCrop()
                 .crossFade()
                 .into(item.image);
+        this.setClickListener(convertView, position);
         return convertView;
+    }
+
+    @Override
+    public NewsItem getItem(int position)
+    {
+        return data.get(position);
+    }
+
+    private void setClickListener(View convertView, final int position)
+    {
+        convertView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                context.newFragment(RootActivity.WEBVIEW_FRAGMENT, "Wired UK", getItem(position).getLink());
+//                context.getFragmentManager().beginTransaction()
+//                        .replace(R.id.container,
+//                                WebViewFragment.newInstance(
+//                                        "Wired UK", getItem(position).getLink())).commit();
+            }
+        });
     }
 
     static class ListItem
@@ -65,13 +93,4 @@ public class FeedAdapter extends ArrayAdapter<NewsItem>
         TextView date;
         ImageView image;
     }
-
-    private SimpleTarget target = new SimpleTarget()
-    {
-        @Override
-        public void onResourceReady(Object resource, GlideAnimation glideAnimation)
-        {
-
-        }
-    };
 }

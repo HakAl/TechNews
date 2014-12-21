@@ -5,10 +5,13 @@ package com.jacmobile.technews.utils;
  */
 public class TextUtils
 {
-    public static String formatNewsDate(String date)
+    public static String cleanNewsDate(String date)
     {
-        return date.contains(" GMT") ?
+        date = date.contains(" GMT") ?
                 date.replace(" GMT", "") :
+                date;
+        return date.contains(" +0000") ?
+                date.replace(" +0000", "") :
                 date;
     }
 }

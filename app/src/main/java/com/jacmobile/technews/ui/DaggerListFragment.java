@@ -64,7 +64,9 @@ public class DaggerListFragment extends ListFragment
         {
             super.onStart();
             bus.register(this);
-            networkModule.get("http://feeds.wired.com/wired/index");
+//            networkModule.get("http://feeds.wired.com/wired/index");
+//            networkModule.get("http://www.wired.co.uk/rss");
+            networkModule.get("http://www.forbes.com/technology/feed/");
         }
 
         @Override
