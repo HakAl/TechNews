@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jacmobile.technews.R;
 
@@ -24,8 +23,7 @@ import com.jacmobile.technews.R;
  */
 public class ActionBarManager implements AdapterView.OnItemClickListener
 {
-    private boolean adsOn = true;
-    private String[] drawerStrings = {"Sensor Feed List", "Sensor Profile", "System Properties"};
+    private String[] drawerStrings = {"Featured", "Profile", "Settings"};
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private View actionBar;
@@ -106,8 +104,6 @@ public class ActionBarManager implements AdapterView.OnItemClickListener
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         drawer.closeDrawers();
-
-        //TODO
-//        getActivity().navListClick(position);
+        ((DrawerClickListener) getActivity()).navListClick(position);
     }
 }

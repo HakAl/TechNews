@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="news_item_height">260dp</dimen>
+    <dimen name="news_item_text_height">72dp</dimen>
+    <dimen name="news_item_text">19sp</dimen>
+    <dimen name="news_item_date_text">16sp</dimen>
+    <dimen name="news_item_padding">5dp</dimen>
+
+    <dimen name="progress_text">17sp</dimen>
+    <dimen name="actionbar_text">22sp</dimen>
 
     <dimen name="fab_elevation">8dp</dimen>
     <dimen name="fab_press_translation_z">9dp</dimen>

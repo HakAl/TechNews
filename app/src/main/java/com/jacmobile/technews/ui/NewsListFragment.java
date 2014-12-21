@@ -1,6 +1,5 @@
 package com.jacmobile.technews.ui;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,21 +31,20 @@ public class NewsListFragment extends DaggerFragment
 {
     @SuppressWarnings("unused")
     public static final String POSITION = "pos";
+    public static final String TITLE = "ttl";
+    public static final String URL = "url";
     @Inject Bus bus;
     @Inject NetworkModule networkModule;
     private ListView list;
     private NewsItem[] rssFeed = null;
 
-    public static NewsListFragment newInstance()
-    {
-        return newInstance(0);
-    }
-
-    public static NewsListFragment newInstance(int position)
+    public static NewsListFragment newInstance(String title, String url, int position)
     {
         NewsListFragment fragment = new NewsListFragment();
         Bundle args = new Bundle();
         args.putInt(POSITION, position);
+        args.putString(TITLE, title);
+        args.putString(URL, url);
         fragment.setArguments(args);
         return fragment;
     }
@@ -83,11 +81,9 @@ public class NewsListFragment extends DaggerFragment
     {
         RelativeLayout parent = (RelativeLayout) inflater.inflate(R.layout.news_list, container, false);
         this.list = (ListView) parent.findViewById(R.id.news_list);
-
         if (rssFeed == null) {
-            networkModule.get("http://www.wired.co.uk/rss");
-//            networkModule.get("http://feeds.wired.com/wired/index");
-//            networkModule.get("http://www.forbes.com/technology/feed/");
+            networkModule.get(getArguments().getString(URL));
+            ((RootActivity) getActivity()).setWindowTitle(getArguments().getString(TITLE));
         } else {
             list.setAdapter(new FeedAdapter(getActivity(), R.layout.image_item, rssFeed));
             this.restoreListState(getArguments());

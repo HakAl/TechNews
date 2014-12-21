@@ -14,7 +14,7 @@ import com.jacmobile.technews.R;
 /**
  * Created by alex on 12/15/14.
  */
-public class RootActivity extends ABaseActivity
+public class RootActivity extends ABaseActivity implements DrawerClickListener
 {
     @SuppressWarnings("unused")
     public static final String WEBVIEW_FRAGMENT = "webview";
@@ -30,7 +30,7 @@ public class RootActivity extends ABaseActivity
     {
         super.onCreate(savedInstanceState);
         super.inject(this);
-        setContentView(R.layout.drawer_layout);
+        this.setContentView(R.layout.drawer_layout);
 
         this.inflater = LayoutInflater.from(this);
         this.rootLayout = (RelativeLayout) this.findViewById(R.id.container);
@@ -87,21 +87,9 @@ public class RootActivity extends ABaseActivity
     }
 
     @Override
-    protected void onResume()
+    public void navListClick(int position)
     {
-        super.onResume();
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-    }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
+        //TODO
     }
 
     public void setWindowTitle(String title)
@@ -136,7 +124,7 @@ public class RootActivity extends ABaseActivity
     public void initNewsList()
     {
         try {
-            newsListFragment = NewsListFragment.newInstance();
+            newsListFragment = NewsListFragment.newInstance("Wired UK", "http://www.wired.co.uk/rss", 0);
             getFragmentManager()
                     .beginTransaction()
                     .add(R.id.container, newsListFragment, NEWSLIST_FRAGMENT)

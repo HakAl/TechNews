@@ -27,7 +27,8 @@ public class DaggerApplication extends Application implements DaggerInjector
     private ObjectGraph mObjectGraph;
 
     @Override
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
 
         AndroidAppModule sharedAppModule = new AndroidAppModule();
@@ -48,21 +49,27 @@ public class DaggerApplication extends Application implements DaggerInjector
 
     private void initGlide()
     {
-        Glide.get(this).register(GlideUrl.class, InputStream.class,
-                new OkHttpUrlLoader.Factory(okHttpClient));
+        Glide.get(this)
+             .register(
+                    GlideUrl.class,
+                    InputStream.class,
+                    new OkHttpUrlLoader.Factory(okHttpClient));
     }
 
-    protected List<Object> getAppModules() {
+    protected List<Object> getAppModules()
+    {
         return Collections.<Object>singletonList(new ApplicationScopeModule());
     }
 
     @Override
-    public void inject(Object object) {
+    public void inject(Object object)
+    {
         mObjectGraph.inject(object);
     }
 
     @Override
-    public ObjectGraph getObjectGraph() {
+    public ObjectGraph getObjectGraph()
+    {
         return mObjectGraph;
     }
 }

@@ -7,13 +7,20 @@
     <TextView
         android:id="@+id/action_bar_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="@string/app_name"
         android:textColor="@color/white"
         android:shadowColor="@color/primary_text"
         android:shadowRadius="2"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:textSize="20sp"/>
+        android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/actionbar_text"/>
+
+    <!--android:fontFamily="sans-serif"           // roboto regular-->
+    <!--android:fontFamily="sans-serif-light"     // roboto light-->
+    <!--android:fontFamily="sans-serif-condensed" // roboto condensed-->
+    <!--android:fontFamily="sans-serif-thin"      // roboto thin (android 4.2)-->
+    <!--android:fontFamily="sans-serif-medium"-->
 
 </RelativeLayout>

@@ -1,16 +1,12 @@
 package com.jacmobile.technews.app;
 
 import android.content.Context;
-import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.jacmobile.technews.injection.ForApplication;
-import com.jacmobile.technews.ui.NewsItemsDetailActivity;
-import com.jacmobile.technews.ui.NewsItemsListActivity;
-import com.jacmobile.technews.ui.NewsItemsListFragment;
 import com.jacmobile.technews.ui.NewsListFragment;
 import com.jacmobile.technews.ui.WebViewFragment;
 import com.jacmobile.technews.ui.adapters.FeedAdapter;
@@ -33,9 +29,6 @@ import dagger.Provides;
         complete = false,
         library = true,
         injects = {
-                NewsItemsListActivity.class,
-                NewsItemsDetailActivity.class,
-                NewsItemsListFragment.class,
                 FeedAdapter.class,
                 NewsListFragment.class,
                 WebViewFragment.class
@@ -56,11 +49,6 @@ public class AndroidAppModule
         return sApplicationContext;
     }
 
-    @Provides @Singleton LocationManager provideLocationManager()
-    {
-        return (LocationManager) sApplicationContext.getSystemService(Context.LOCATION_SERVICE);
-    }
-
     @Provides @Singleton LayoutInflater provideLayoutInflater()
     {
         return LayoutInflater.from(sApplicationContext);
@@ -76,16 +64,10 @@ public class AndroidAppModule
         return Executors.newCachedThreadPool();
     }
 
-//    @Provides @Singleton OkHttpClient provideOkHttpClient()
-//    {
-//        return new OkHttpClient();
-//    }
-
     @Provides @Singleton Bus provideBus()
     {
         return new Bus(ThreadEnforcer.ANY);
     }
-
 
     @Provides @Singleton OkHttpClient provideOkHttpClient() {
         return createOkHttpClient();
@@ -93,7 +75,6 @@ public class AndroidAppModule
 
     static OkHttpClient createOkHttpClient() {
         OkHttpClient client = new OkHttpClient();
-
         // Install an HTTP cache in the application cache directory.
         try {
             File cacheDir = new File(sApplicationContext.getCacheDir(), "http");
@@ -102,7 +83,6 @@ public class AndroidAppModule
         } catch (IOException e) {
             Log.e("Unable to install disk cache.", e.toString());
         }
-
         return client;
     }
 }
