@@ -49,14 +49,15 @@ public class FeedAdapter extends ArrayAdapter<NewsItem>
             item = (ListItem) convertView.getTag();
         }
         NewsItem currentItem = getItem(position);
-//        Log.wtf("media:content", currentItem.getMediaContent());
         item.title.setText(currentItem.getTitle());
         item.date.setText(TextUtils.cleanNewsDate(currentItem.getDate()));
-        Glide.with(getContext())
-                .load(currentItem.getImageUrl())
-                .centerCrop()
-                .crossFade()
-                .into(item.image);
+        if (currentItem.getImageUrl() != null) {
+            Glide.with(getContext())
+                    .load(currentItem.getImageUrl())
+                    .centerCrop()
+                    .crossFade()
+                    .into(item.image);
+        }
         this.setClickListener(convertView, position);
         return convertView;
     }

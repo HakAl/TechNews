@@ -24,6 +24,7 @@ import java.io.StringReader;
 import javax.inject.Inject;
 import javax.xml.parsers.SAXParserFactory;
 
+
 /**
  * Created by alex on 12/15/14.
  */
@@ -103,6 +104,50 @@ public class NewsListFragment extends DaggerFragment
 
     private void parseResponse(String response)
     {
+
+//        FeedParser parser = new FeedParser();
+//        XmlPullParserFactory factory = null;
+//        try {
+//            factory = XmlPullParserFactory.newInstance();
+//            factory.setNamespaceAware(true);
+//            XmlPullParser xpp = factory.newPullParser();
+//
+//            xpp.setInput( new StringReader ( response ) );
+//            parser.parseFeed(xpp);
+//        } catch (XmlPullParserException e) {
+//            e.printStackTrace();
+//        } catch (FeedParser.UnknownFeedException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        RssParser rss = new RssParser();
+//
+//        try{
+//            RssFeed feed = rss.loadString(response);
+//
+//            // Gets the channel information of the feed and
+//            // display its title
+//            RssChannelBean channel = feed.getChannel();
+//            System.out.println("Feed Title: " + channel.getTitle());
+//
+//            // Gets the image of the feed and display the image URL
+//            RssImageBean image = feed.getImage();
+//            System.out.println("Feed Image: " + image.getUrl());
+//
+//            // Gets and iterate the items of the feed
+//            List<RssItemBean> items = feed.getItems();
+//            for (int i=0; i<items.size(); i++){
+//                RssItemBean item = items.get(i);
+//                System.out.println("Title: " + item.getTitle());
+//                System.out.println("Link : " + item.getLink());
+//                System.out.println("Desc.: " + item.getDescription());
+//            }
+//
+//        }catch(Exception e){
+//            // Something to do if an exception occurs
+//        }
         try {
             RssHandler parser = new RssHandler();
             SAXParserFactory.newInstance()
@@ -120,20 +165,12 @@ public class NewsListFragment extends DaggerFragment
     public void setImageLinks()
     {
         for (NewsItem item : rssFeed) {
-            item.setImageUrl(this.getImageUrl(item.getDescription()));
+//            item.setImageUrl(TextUtils.getImageUrl(item.getDescription()));
+            Log.wtf("url", item.getImageUrl());
         }
     }
 
-    //parse description for any image or video links
-    public String getImageUrl(String description)
-    {
-        if (description.contains("<img ")) {
-            String img = description.substring(description.indexOf("<img "));
-            img = img.substring(img.indexOf("src=") + 5);
-            int indexOf = img.indexOf("\"");
-            img = img.substring(0, indexOf);
-            return img;
-        }
-        return "";
-    }
+    final int LONG_OFFSET = 26;
+    final int OFFSET = 5;
+
 }

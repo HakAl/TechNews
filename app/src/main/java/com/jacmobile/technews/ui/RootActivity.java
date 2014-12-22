@@ -19,6 +19,7 @@ public class RootActivity extends ABaseActivity implements DrawerClickListener
     @SuppressWarnings("unused")
     public static final String WEBVIEW_FRAGMENT = "webview";
     public static final String NEWSLIST_FRAGMENT = "newslist";
+    public static final String NEWS_FEED_LIST_FRAGMENT = "newsFeedlist";
     private LayoutInflater inflater;
     private RelativeLayout rootLayout;
     private ActionBarManager actionBarManager;
@@ -124,7 +125,7 @@ public class RootActivity extends ABaseActivity implements DrawerClickListener
     public void initNewsList()
     {
         try {
-            newsListFragment = NewsListFragment.newInstance("Wired UK", "http://www.wired.co.uk/rss", 0);
+            newsListFragment = NewsListFragment.newInstance("TechCrunch", "http://www.forbes.com/technology/feed/", 0);
             getFragmentManager()
                     .beginTransaction()
                     .add(R.id.container, newsListFragment, NEWSLIST_FRAGMENT)

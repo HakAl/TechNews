@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class ForbesTechChannel implements Serializable
 {
     private Items items;
+
     private String title;
     private String link;
     private String description;

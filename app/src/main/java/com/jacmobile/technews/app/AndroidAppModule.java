@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.jacmobile.technews.injection.ForApplication;
+import com.jacmobile.technews.networking.ForbesTechRssHandler;
 import com.jacmobile.technews.ui.NewsListFragment;
 import com.jacmobile.technews.ui.WebViewFragment;
 import com.jacmobile.technews.ui.adapters.FeedAdapter;
@@ -31,7 +32,8 @@ import dagger.Provides;
         injects = {
                 FeedAdapter.class,
                 NewsListFragment.class,
-                WebViewFragment.class
+                WebViewFragment.class,
+                ForbesTechRssHandler.class,
 //                RootActivity.class
         }
 )

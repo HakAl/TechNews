@@ -1,8 +1,6 @@
 package com.jacmobile.technews.networking.rss.entities;
 
-import java.io.Serializable;
-
-public class NewsItem implements Serializable
+public class NewsItem
 {
     public String date;
     public String title;
@@ -10,6 +8,17 @@ public class NewsItem implements Serializable
     public String imageUrl;
     public String author;
     public String description;
+    public String content;
+
+    public String getContent()
+    {
+        return content;
+    }
+
+    public void setContent(String content)
+    {
+        this.content = content;
+    }
 
     public String getAuthor()
     {
