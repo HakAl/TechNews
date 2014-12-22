@@ -142,6 +142,8 @@ public class RootActivity extends ABaseActivity implements DrawerClickListener, 
             e.printStackTrace();
         }
     }
+
+
     //TODO WIP
 //
 //    private Fragment getFragmentTag(String tag)
