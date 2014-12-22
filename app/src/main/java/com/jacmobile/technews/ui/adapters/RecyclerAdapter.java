@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jacmobile.technews.R;
-import com.jacmobile.technews.networking.rss.entities.NewsItem;
+import com.jacmobile.technews.networking.rss.channels.Channel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,19 +17,19 @@ import java.util.Arrays;
  */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
 {
-    private ArrayList<NewsItem> data;
+    private ArrayList<Channel> data;
 
-    public static RecyclerAdapter newInstance(NewsItem[] data)
+    public static RecyclerAdapter newInstance(Channel[] data)
     {
         return new RecyclerAdapter(new ArrayList<>(Arrays.asList(data)));
     }
 
-    public static RecyclerAdapter newInstance(ArrayList<NewsItem> data)
+    public static RecyclerAdapter newInstance(ArrayList<Channel> data)
     {
         return new RecyclerAdapter(data);
     }
 
-    private RecyclerAdapter(ArrayList<NewsItem> data)
+    private RecyclerAdapter(ArrayList<Channel> data)
     {
         this.data = data;
     }
@@ -46,7 +46,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position)
     {
         holder.title.setText(data.get(position).getTitle());
-        holder.description.setText(data.get(position).getDescription());
+//        holder.description.setText(data.get(position).getDescription());
 
     }
 

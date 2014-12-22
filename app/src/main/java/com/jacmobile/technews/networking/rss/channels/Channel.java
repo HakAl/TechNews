@@ -17,9 +17,10 @@ public class Channel
         return title;
     }
 
-    public void setTitle(String title)
+    public Channel setTitle(String title)
     {
         this.title = title;
+        return this;
     }
 
     public String getLink()
@@ -27,8 +28,9 @@ public class Channel
         return link;
     }
 
-    public void setLink(String link)
+    public Channel setLink(String link)
     {
         this.link = link;
+        return this;
     }
 }

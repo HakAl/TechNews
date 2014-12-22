@@ -18,9 +18,12 @@ import android.widget.TextView;
 
 import com.jacmobile.technews.R;
 
+import javax.inject.Singleton;
+
 /**
  * Created by alex on 11/9/14.
  */
+@Singleton
 public class ActionBarManager implements AdapterView.OnItemClickListener
 {
     private String[] drawerStrings = {"Featured", "Profile", "Settings"};
@@ -46,7 +49,6 @@ public class ActionBarManager implements AdapterView.OnItemClickListener
         getActivity().setSupportActionBar(toolbar);
         this.actionBar = layoutInflater.inflate(R.layout.action_bar, toolbar, false);
         toolbar.addView(actionBar);
-
         ViewCompat.setElevation(toolbar, 5f);
         drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
         drawer.setScrimColor(Color.parseColor("#66000000"));
@@ -104,6 +106,6 @@ public class ActionBarManager implements AdapterView.OnItemClickListener
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         drawer.closeDrawers();
-        ((DrawerClickListener) getActivity()).navListClick(position);
+        ((DrawerClickListener) getActivity()).drawerListClick(position);
     }
 }

@@ -75,11 +75,7 @@ public class FeedAdapter extends ArrayAdapter<NewsItem>
             @Override
             public void onClick(View v)
             {
-                context.newFragment(RootActivity.WEBVIEW_FRAGMENT, "Wired UK", getItem(position).getLink());
-//                context.getFragmentManager().beginTransaction()
-//                        .replace(R.id.container,
-//                                WebViewFragment.newInstance(
-//                                        "Wired UK", getItem(position).getLink())).commit();
+                context.showFragment(RootActivity.WEBVIEW_FRAGMENT, "Wired UK", getItem(position).getLink());
             }
         });
     }

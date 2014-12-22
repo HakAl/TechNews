@@ -5,5 +5,5 @@ package com.jacmobile.technews.ui;
  */
 public interface DrawerClickListener
 {
-    public void navListClick(int position);
+    public void drawerListClick(int position);
 }

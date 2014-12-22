@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 
 import com.jacmobile.technews.injection.ForApplication;
 import com.jacmobile.technews.networking.ForbesTechRssHandler;
+import com.jacmobile.technews.ui.ActionBarManager;
+import com.jacmobile.technews.ui.FeedListFragment;
 import com.jacmobile.technews.ui.NewsListFragment;
 import com.jacmobile.technews.ui.WebViewFragment;
 import com.jacmobile.technews.ui.adapters.FeedAdapter;
@@ -34,6 +36,8 @@ import dagger.Provides;
                 NewsListFragment.class,
                 WebViewFragment.class,
                 ForbesTechRssHandler.class,
+                FeedListFragment.class,
+                ActionBarManager.class
 //                RootActivity.class
         }
 )

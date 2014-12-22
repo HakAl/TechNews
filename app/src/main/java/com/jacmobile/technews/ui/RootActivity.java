@@ -10,20 +10,27 @@ import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
 import com.jacmobile.technews.R;
+import com.jacmobile.technews.networking.RssUrls;
+import com.jacmobile.technews.networking.rss.channels.Channel;
+
+import javax.inject.Inject;
 
 /**
  * Created by alex on 12/15/14.
  */
-public class RootActivity extends ABaseActivity implements DrawerClickListener
+public class RootActivity extends ABaseActivity implements DrawerClickListener, FeedListObserver
 {
     @SuppressWarnings("unused")
     public static final String WEBVIEW_FRAGMENT = "webview";
     public static final String NEWSLIST_FRAGMENT = "newslist";
-    public static final String NEWS_FEED_LIST_FRAGMENT = "newsFeedlist";
+    public static final String FEED_LIST_FRAGMENT = "feedlist";
+
     private LayoutInflater inflater;
     private RelativeLayout rootLayout;
-    private ActionBarManager actionBarManager;
+    @Inject ActionBarManager actionBarManager;
     private Fragment newsListFragment = null;
+    private Fragment feedListFragment = null;
+    private Channel currentChannel = null;
     private boolean isChild = false;
 
     @Override
@@ -38,7 +45,7 @@ public class RootActivity extends ABaseActivity implements DrawerClickListener
         actionBarManager = new ActionBarManager((Toolbar) this.findViewById(R.id.toolbar));
 
         if (savedInstanceState == null) {
-            initNewsList();
+            initFeedList();
         }
     }
 
@@ -66,7 +73,8 @@ public class RootActivity extends ABaseActivity implements DrawerClickListener
         else {
             if (isChild) {
                 isChild = false;
-                this.newFragment(NEWSLIST_FRAGMENT);
+                getFragmentManager().beginTransaction().hide(newsListFragment).commit();
+                getFragmentManager().beginTransaction().show(feedListFragment).commit();
             } else {
                 super.onBackPressed();
             }
@@ -88,9 +96,17 @@ public class RootActivity extends ABaseActivity implements DrawerClickListener
     }
 
     @Override
-    public void navListClick(int position)
+    public void drawerListClick(int position)
     {
         //TODO
+    }
+
+    //    FeedListObserver
+    @Override
+    public void onItemClick(int position)
+    {
+        this.currentChannel = RssUrls.getChannels()[position];
+        this.newsList(currentChannel);
     }
 
     public void setWindowTitle(String title)
@@ -98,40 +114,68 @@ public class RootActivity extends ABaseActivity implements DrawerClickListener
         this.actionBarManager.setActionBarTitle(title);
     }
 
-    public void newFragment(String tag, String... args)
+    public void showFragment(String tag, String... args)
     {
-        isChild = true;
         final FragmentManager fragmentManager = getFragmentManager();
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
         final Fragment fragment;
+
+
         try {
-            switch (tag) {
-                case NEWSLIST_FRAGMENT:
-                    transaction.replace(R.id.container, newsListFragment, NEWSLIST_FRAGMENT);
-                    break;
-                case WEBVIEW_FRAGMENT:
-                    fragment = WebViewFragment.newInstance(args[0], args[1]);
-                    if (fragmentManager.findFragmentByTag(WEBVIEW_FRAGMENT) != null)
-                        transaction.addToBackStack(null);
-                    transaction.replace(R.id.container, fragment, WEBVIEW_FRAGMENT);
-                    break;
+            if (fragmentManager.findFragmentByTag(tag) == null) {
+                switch (tag) {
+                    case FEED_LIST_FRAGMENT:
+                        transaction.replace(R.id.container, feedListFragment, NEWSLIST_FRAGMENT);
+                        break;
+                    case WEBVIEW_FRAGMENT:
+                        fragment = WebViewFragment.newInstance(args[0], args[1]);
+                        if (fragmentManager.findFragmentByTag(WEBVIEW_FRAGMENT) != null)
+                            transaction.addToBackStack(null);
+                        transaction.replace(R.id.container, fragment, WEBVIEW_FRAGMENT);
+                        break;
+                }
+                transaction.commit();
+            } else {
+
             }
-            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //TODO WIP
+//
+//    private Fragment getFragmentTag(String tag)
+//    {
+//        return (getFragmentManager().findFragmentByTag(tag) == null) ?
+//                newFragment(tag)
+//                : getFragmentManager().findFragmentByTag(tag);
+//    }
+//
+//    private Fragment newFragment(String tag)
+//    {
+//
+//    }
+
+    private void initFeedList()
+    {
+        try {
+            feedListFragment = FeedListFragment.newInstance(0);
+            getFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.container, feedListFragment, FEED_LIST_FRAGMENT)
+                    .commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void initNewsList()
+    private void newsList(Channel channel)
     {
-        try {
-            newsListFragment = NewsListFragment.newInstance("TechCrunch", "http://www.forbes.com/technology/feed/", 0);
-            getFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.container, newsListFragment, NEWSLIST_FRAGMENT)
-                    .commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        isChild = true;
+        newsListFragment = NewsListFragment.newInstance(channel.getTitle(), channel.getLink(), 0);
+        getFragmentManager().beginTransaction().hide(feedListFragment).commit();
+        getFragmentManager().beginTransaction()
+                .add(R.id.container, newsListFragment, NEWSLIST_FRAGMENT)
+                .commit();
     }
 }
